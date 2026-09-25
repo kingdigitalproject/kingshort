@@ -118,7 +118,8 @@ function mockResult(url, numClips){
 function renderResults(result){
   lastResult = result;
   const n = result.shorts.length;
-  els.resultMeta.textContent = `${n} Shorts viral siap`;
+  const provider = result.provider ? ` • ${result.provider}` : "";
+  els.resultMeta.textContent = `${n} Shorts viral siap${provider}`;
   els.jsonPre.textContent = JSON.stringify(result,null,2);
 
   if(!result.shorts.length){
@@ -221,7 +222,7 @@ els.generateBtn.addEventListener('click', async()=>{
   };
 
   els.generateBtn.disabled=true; els.generateBtn.textContent='👑 Memproses...';
-  showProgress(10,'KINGSHORTCLIP sedang mencari momen viral...');
+  showProgress(10,'KINGSHORTCLIP by ciora.id — gratis, mencari momen viral...');
   hideStatus();
 
   let pct=15;

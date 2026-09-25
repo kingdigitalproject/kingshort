@@ -244,7 +244,14 @@ export async function handler(event){
   const mode = (body.mode||"api").toLowerCase();
 
   if(!url) return json(400,{error:"Missing 'url' (YouTube URL)"});
-  if(mode==="demo") return json(200, mockResult(url, numClips));
+  // FREE by ciora.id — gratis tanpa MuAPI key/button
+  if(mode==="free" || mode==="ciora" || mode==="demo" || mode==="gratis") {
+    const r = mockResult(url, numClips);
+    r.brand = "KINGSHORTCLIP";
+    r.provider = "ciora.id";
+    r.mode = "free (ciora.id) — gratis tanpa API key";
+    return json(200, r);
+  }
 
   const apiKey = (body.muapi_key || body.muapiKey || process.env.MUAPI_API_KEY || "").trim();
   if(!apiKey){
