@@ -21,7 +21,26 @@ async function submit(endpoint, payload, apiKey){
   const res = await fetch(url, { method:"POST", headers: headers(apiKey), body: JSON.stringify(payload) });
   const text = await res.text();
   let data; try{ data = JSON.parse(text); }catch{ data = { raw:text }; }
-  if(!res.ok) throw new Error(`${endpoint} submit failed [${res.status}]: ${text.slice(0,1200)}`);
+  if(!res.ok){
+    // Detect INSUFFICIENT_CREDITS (402) with detail for frontend
+    if(res.status===402){
+      let detail = data.detail || data.error || {};
+      // unwrap nested error
+      const inner = detail.error || detail;
+      const code = inner.code || detail.code || "INSUFFICIENT_CREDITS";
+      const topup = inner.topup_url || detail.topup_url || data.topup_url || "https://muapi.ai/topup";
+      const balanceEp = inner.balance_endpoint || detail.balance_endpoint || data.balance_endpoint || "/api/v1/account/balance";
+      const msg = inner.message || detail.message || "Insufficient credit balance";
+      const err = new Error(`${code}: ${msg} | topup:${topup} | balance:${balanceEp}`);
+      err.code = code;
+      err.status = 402;
+      err.topup_url = topup;
+      err.balance_endpoint = balanceEp;
+      err.endpoint = endpoint;
+      throw err;
+    }
+    throw new Error(`${endpoint} submit failed [${res.status}]: ${text.slice(0,1200)}`);
+  }
   const request_id = data.request_id || data.id || data.requestId;
   if(!request_id) throw new Error(`${endpoint} response had no request_id: ${text.slice(0,1200)}`);
   return String(request_id);
@@ -277,6 +296,21 @@ export async function handler(event){
 
   }catch(err){
     console.error("[generate] error", err);
-    return json(500, { error: err.message || String(err), hint: "Check MUAPI_API_KEY valid, MUAPI_BASE_URL=https://api.muapi.ai/api/v1, and YouTube URL is public. Original base was wrong (missing /api/v1) — now fixed." });
+    // INSUFFICIENT_CREDITS -> return 402 with actionable Indonesian message + topup link
+    if(err.code==="INSUFFICIENT_CREDITS" || err.status===402 || String(err.message).includes("INSUFFICIENT_CREDITS")){
+      return json(402, {
+        error_code: "INSUFFICIENT_CREDITS",
+        error: "Kredit MuAPI habis — saldo tidak cukup untuk proses video.",
+        message: "Akun MuAPI Anda kehabisan kredit. Setiap proses (download + whisper + LLM + autocrop) butuh kredit. Top up dulu, lalu coba lagi.",
+        message_en: err.message,
+        endpoint_failed: err.endpoint || "youtube-download",
+        topup_url: err.topup_url || "https://muapi.ai/topup",
+        balance_endpoint: err.balance_endpoint || "/api/v1/account/balance",
+        balance_url: `${MUAPI_BASE}/account/balance`,
+        hint: "Buka https://muapi.ai/topup untuk isi kredit, atau cek saldo di /api/v1/account/balance. Sementara itu kamu bisa coba mode Demo (tanpa kredit) untuk lihat hasil contoh.",
+        demo_hint: "Klik 'Coba Demo' di halaman untuk lihat preview KINGSHORTCLIP tanpa pakai kredit."
+      });
+    }
+    return json(500, { error: err.message || String(err), hint: "Check MUAPI_API_KEY valid, MUAPI_BASE_URL=https://api.muapi.ai/api/v1, and YouTube URL is public." });
   }
 }

@@ -146,28 +146,59 @@ function renderResults(result){
 }
 
 async function callGenerate(payload){
-  // Try Netlify Function first
   try{
     const r = await fetch('/.netlify/functions/generate', {
       method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
     });
+    const data = await r.json().catch(()=> ({}));
     if(r.ok){
-      const data = await r.json();
-      // function may return {error} or actual result
       if(data.shorts || data.highlights) return data;
       if(data.error) throw new Error(data.error);
+      return data;
     }
-    // if 404 (local file:// without netlify dev), fall through to mock
+    // Handle 402 INSUFFICIENT_CREDITS specially
+    if(r.status===402 || data.error_code==="INSUFFICIENT_CREDITS"){
+      const err = new Error(data.error || "INSUFFICIENT_CREDITS");
+      err.code = "INSUFFICIENT_CREDITS";
+      err.status = 402;
+      err.detail = data;
+      throw err;
+    }
     if(r.status===404) throw new Error('Function not found — running in static mode');
-    const txt = await r.text();
-    throw new Error(txt.slice(0,500));
+    throw new Error(data.error || data.hint || JSON.stringify(data).slice(0,600) || `HTTP ${r.status}`);
   }catch(e){
-    // fallback: if demo mode or function unavailable, return mock
+    if(e.code==="INSUFFICIENT_CREDITS") throw e;
     if(payload.mode==='demo' || e.message.includes('Function not found') || e.message.includes('Failed to fetch')){
       return mockResult(payload.url, payload.num_clips);
     }
     throw e;
   }
+}
+
+function renderCreditError(err){
+  const d = err.detail || {};
+  els.results.innerHTML = `
+    <div class="clip" style="border-color:#ffb700;background:linear-gradient(135deg,rgba(255,183,0,.12),rgba(255,90,0,.08))">
+      <div class="clip-head"><span class="clip-num" style="background:#ff3b30">402</span><span class="clip-score" style="color:#ffb700">INSUFFICIENT_CREDITS</span></div>
+      <h4 style="margin:8px 0">💳 Kredit MuAPI Habis</h4>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6">Saldo kredit MuAPI tidak cukup untuk memproses video. Setiap video butuh kredit untuk <b>download + transcribe + AI ranking + crop</b>. Top up dulu, lalu coba lagi.</p>
+      <div style="background:rgba(0,0,0,.25);padding:10px;border-radius:10px;margin:10px 0;font-size:12px">
+        <div style="color:#ffb700">Endpoint gagal: <b>${d.endpoint_failed||'youtube-download'}</b></div>
+        <div style="margin-top:4px;word-break:break-all;color:var(--muted)">${(err.message||'').slice(0,300)}</div>
+      </div>
+      <div class="clip-actions">
+        <a class="btn-play" href="${d.topup_url||'https://muapi.ai/topup'}" target="_blank">💳 Top Up di muapi.ai ↗</a>
+        <a class="btn-dl" href="https://muapi.ai/dashboard" target="_blank">Cek Saldo</a>
+        <button class="btn-dl" id="tryDemoBtn">👑 Coba Demo (Gratis, tanpa kredit)</button>
+      </div>
+      <small style="display:block;margin-top:10px;color:var(--muted)">Sementara menunggu top up, klik <b>Coba Demo</b> untuk lihat preview KINGSHORTCLIP dengan video contoh.</small>
+    </div>`;
+  document.getElementById('tryDemoBtn')?.addEventListener('click', async()=>{
+    showStatus('Menampilkan Demo KINGSHORTCLIP...','info');
+    const demo = mockResult(els.url.value.trim()||'https://www.youtube.com/watch?v=dQw4w9WgXcQ', parseInt(els.numClips.value,10));
+    renderResults(demo);
+    showStatus('Ini hasil Demo (tanpa pakai kredit) — Top up untuk proses video asli.','ok');
+  });
 }
 
 els.generateBtn.addEventListener('click', async()=>{
@@ -208,7 +239,12 @@ els.generateBtn.addEventListener('click', async()=>{
     showStatus(`Selesai — ${result.shorts.length} Shorts viral siap! Klik Download untuk simpan.`,'ok');
   }catch(err){
     clearInterval(progInterval); hideProgress();
-    showStatus('Gagal: '+(err.message||err),'err');
+    if(err.code==="INSUFFICIENT_CREDITS"){
+      renderCreditError(err);
+      showStatus('💳 Kredit habis — Top up di muapi.ai/topup lalu coba lagi. Atau klik Coba Demo.','err');
+    } else {
+      showStatus('Gagal: '+(err.message||err),'err');
+    }
     console.error(err);
   }finally{
     els.generateBtn.disabled=false; els.generateBtn.textContent='👑 Buat Shorts Viral Sekarang';
