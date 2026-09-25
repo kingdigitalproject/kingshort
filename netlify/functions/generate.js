@@ -219,14 +219,17 @@ Respond ONLY valid JSON: {"highlights":[{"title":"...","start_time":float,"end_t
 }
 
 function mockResult(url, numClips){
-  const titles = ["The one mistake that cost me $50K","Why your startup will fail in 6 months","AI will replace this job first","Nobody talks about this marketing trick","I interviewed 100 founders — this shocked me"];
+  const titles = ["Kesalahan 50 Juta yang Bikin Dagangan Sepi","Kenapa Banyak UMKM Gagal di 6 Bulan Pertama","Pekerjaan Ini Bakal Diganti AI Paling Cepat","Rahasia Marketing yang Jarang Dibahas","Wawancara 100 Founder — Ini yang Paling Ngejutin"];
+  const hooks = ["\"Gak ada yang bahas ini, padahal ini yang bikin usaha gue tutup...\"","\"Kalau masih ngelakuin ini, kamu kalah duluan...\"","\"Satu insight ini ngubah hidup gue total...\""];
+  const reasons = ["hook kuat + konflik","puncak emosi + pengungkapan","opini berani"];
+  const clips = ["https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4","https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4","https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"];
   const shorts = Array.from({length:numClips},(_,i)=>({
     title: titles[i%titles.length], score: 92-i*4, start_time: 12+i*80, end_time: 48+i*80,
-    hook_sentence: "\"Nobody talks about this, but it killed my first startup...\"",
-    virality_reason: ["hook + conflict","emotional peak + revelation","opinion bomb"][i%3],
-    clip_url: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4"
+    hook_sentence: hooks[i%hooks.length],
+    virality_reason: reasons[i%reasons.length],
+    clip_url: clips[i%clips.length]
   }));
-  return { brand:"KINGSHORTCLIP", mode:"demo", source_video_url:url, transcript:{duration:600,segments:[{start:0,end:5,text:"KINGSHORTCLIP Demo"}]}, highlights: shorts, shorts };
+  return { brand:"KINGSHORTCLIP", provider:"ciora.id", source_video_url:url, transcript:{duration:600,segments:[{start:0,end:5,text:"KINGSHORTCLIP Demo"}]}, highlights: shorts, shorts };
 }
 
 export async function handler(event){

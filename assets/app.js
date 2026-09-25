@@ -77,23 +77,31 @@ function showProgress(pct, text){
 function hideProgress(){ els.progress.style.display='none'; }
 
 function mockResult(url, numClips){
-  const vid = getVideoId(url) || 'demo';
-  const base = 40 + Math.floor(Math.random()*20);
   const titles = [
-    "The one mistake that cost me $50K","Why your startup will fail in 6 months",
-    "AI will replace this job first","Nobody talks about this marketing trick",
-    "I interviewed 100 founders — this shocked me","3 rules for viral content",
-    "The $10M lesson from my failed startup","Stop doing this if you want to grow",
-    "How I got 1M followers in 90 days","The dark side of hustle culture"
+    "Kesalahan 50 Juta yang Bikin Dagangan Sepi",
+    "Kenapa Banyak UMKM Gagal di 6 Bulan Pertama",
+    "Pekerjaan Ini Bakal Diganti AI Paling Cepat",
+    "Rahasia Marketing yang Jarang Dibahas Orang",
+    "Wawancara 100 Founder — Ini yang Paling Ngejutin",
+    "3 Rumus Konten Biar FYP Terus",
+    "Pelajaran 10 Miliar dari Startup yang Gagal",
+    "Stop Lakuin Ini Kalau Mau Omzet Naik",
+    "Cara Dapat 1 Juta Followers dalam 90 Hari",
+    "Sisi Gelap Hustle Culture yang Jarang Diceritain"
   ];
   const hooks = [
-    "\"Nobody talks about this, but it killed my first startup...\"",
-    "\"If you're doing this, you're already losing...\"",
-    "\"This one insight changed everything for me...\"",
-    "\"I wish someone told me this 5 years ago...\"",
-    "\"Most people get this completely wrong...\""
+    "\"Gak ada yang bahas ini, padahal ini yang bikin usaha gue tutup...\"",
+    "\"Kalau kamu masih ngelakuin ini, kamu udah kalah duluan...\"",
+    "\"Satu insight ini ngubah hidup gue total...\"",
+    "\"Andai ada yang kasih tau gue 5 tahun lalu...\"",
+    "\"Kebanyakan orang salah paham soal ini...\""
   ];
-  const reasons = ["hook + conflict + quotable","emotional peak + revelation","opinion bomb + story peak","practical value + hook","conflict + quotable"];
+  const reasons = ["hook kuat + konflik + quotable","puncak emosi + pengungkapan","opini berani + cerita puncak","nilai praktis + hook","konflik + quotable"];
+  const clips = [
+    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+  ];
   const shorts = Array.from({length:numClips},(_,i)=>{
     const score = 92 - i*4 - Math.floor(Math.random()*3);
     const start = 10 + i*85 + Math.floor(Math.random()*30);
@@ -101,13 +109,13 @@ function mockResult(url, numClips){
       title: titles[i % titles.length],
       start_time: start, end_time: start + 35 + Math.floor(Math.random()*20),
       score, hook_sentence: hooks[i%hooks.length], virality_reason: reasons[i%reasons.length],
-      clip_url: `https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4`,
+      clip_url: clips[i % clips.length],
       error: null
     };
   });
   return {
     brand: 'KINGSHORTCLIP',
-    mode: 'demo',
+    provider: 'ciora.id',
     source_video_url: url,
     transcript: { duration: 600, segments: [{start:0,end:5,text:"KINGSHORTCLIP Demo"}]},
     highlights: shorts.map(s=>({...s, type:'highlight'})),
@@ -118,8 +126,7 @@ function mockResult(url, numClips){
 function renderResults(result){
   lastResult = result;
   const n = result.shorts.length;
-  const provider = result.provider ? ` • ${result.provider}` : "";
-  els.resultMeta.textContent = `${n} Shorts viral siap${provider}`;
+  els.resultMeta.textContent = `${n} Shorts viral siap`;
   els.jsonPre.textContent = JSON.stringify(result,null,2);
 
   if(!result.shorts.length){
@@ -129,17 +136,17 @@ function renderResults(result){
   els.results.innerHTML = result.shorts.map((s,i)=>{
     const scCls = s.score>=85 ? 'hi' : s.score>=75 ? 'mid' : 'lo';
     const hasClip = s.clip_url && !s.clip_url.includes('FAILED');
-    const videoTag = hasClip ? `<video class="video-preview" controls preload="metadata" src="${s.clip_url}"></video>` : `<div style="background:#1a1a28;border:1px dashed #23233a;padding:12px;border-radius:10px;margin-top:10px;font-size:12px;color:#9aa0b8">⚠️ Clip belum tersedia — ${s.error||'cek MUAPI_API_KEY / pipeline'}<br><small style="font-family:monospace">${s.clip_url||''}</small></div>`;
+    const videoTag = hasClip ? `<video class="video-preview" controls preload="metadata" playsinline crossorigin="anonymous" src="${s.clip_url}" onerror="this.outerHTML='<div style=\\'background:#1a1a28;border:1px dashed #2e2415;padding:10px;border-radius:10px;margin-top:10px;font-size:12px;color:#a99a7a\\'>⚠️ Preview gagal load — klik Download untuk tonton. <a href=\\'${s.clip_url}\\' target=\\'_blank\\' style=\\'color:#FFD700\\'>Buka video ↗</a></div>'"></video>` : `<div style="background:#1a1a28;border:1px dashed #2e2415;padding:12px;border-radius:10px;margin-top:10px;font-size:12px;color:#a99a7a">⚠️ Clip belum tersedia — ${s.error||''}<br><small style="font-family:monospace">${s.clip_url||''}</small></div>`;
     return `<div class="clip">
-      <div class="clip-head"><span class="clip-num">#${i+1}</span><span class="clip-score ${scCls}">score ${s.score}</span></div>
-      <h4>${s.title||'Untitled clip'}</h4>
-      <div class="time">${Number(s.start_time).toFixed(1)}s → ${Number(s.end_time).toFixed(1)}s • ${(Number(s.end_time)-Number(s.start_time)).toFixed(1)}s dur</div>
+      <div class="clip-head"><span class="clip-num">#${i+1}</span><span class="clip-score ${scCls}">skor ${s.score}</span></div>
+      <h4>${s.title||'Tanpa judul'}</h4>
+      <div class="time">${Number(s.start_time).toFixed(1)}d → ${Number(s.end_time).toFixed(1)}d • ${(Number(s.end_time)-Number(s.start_time)).toFixed(1)}d</div>
       <div class="hook">🪝 ${s.hook_sentence||'-'}</div>
-      <div class="reason">💡 ${s.virality_reason||'-'}</div>
+      <div class="reason">💡 Alasan viral: ${s.virality_reason||'-'}</div>
       <div class="clip-actions">
-        ${hasClip ? `<a class="btn-play" href="${s.clip_url}" target="_blank" download>⬇ Download mp4</a>
-        <a class="btn-dl" href="${s.clip_url}" target="_blank">▶ Open</a>` : ``}
-        <button class="btn-dl" onclick="navigator.clipboard.writeText('${(s.clip_url||'').replace(/'/g,"\\'")}');this.textContent='Copied ✓';setTimeout(()=>this.textContent='Copy URL',1500)">Copy URL</button>
+        ${hasClip ? `<a class="btn-play" href="${s.clip_url}" target="_blank" download>⬇ Download</a>
+        <a class="btn-dl" href="${s.clip_url}" target="_blank">▶ Buka</a>` : ``}
+        <button class="btn-dl" onclick="navigator.clipboard.writeText('${(s.clip_url||'').replace(/'/g,"\\'")}');this.textContent='Tersalin ✓';setTimeout(()=>this.textContent='Salin Link',1500)">Salin Link</button>
       </div>
       ${videoTag}
     </div>`;
