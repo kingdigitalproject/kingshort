@@ -98,9 +98,9 @@ function mockResult(url, numClips){
   ];
   const reasons = ["hook kuat + konflik + quotable","puncak emosi + pengungkapan","opini berani + cerita puncak","nilai praktis + hook","konflik + quotable"];
   const clips = [
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+    "https://www.w3schools.com/html/mov_bbb.mp4",
+    "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4",
+    "https://www.w3schools.com/html/movie.mp4"
   ];
   const shorts = Array.from({length:numClips},(_,i)=>{
     const score = 92 - i*4 - Math.floor(Math.random()*3);

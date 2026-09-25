@@ -222,7 +222,7 @@ function mockResult(url, numClips){
   const titles = ["Kesalahan 50 Juta yang Bikin Dagangan Sepi","Kenapa Banyak UMKM Gagal di 6 Bulan Pertama","Pekerjaan Ini Bakal Diganti AI Paling Cepat","Rahasia Marketing yang Jarang Dibahas","Wawancara 100 Founder — Ini yang Paling Ngejutin"];
   const hooks = ["\"Gak ada yang bahas ini, padahal ini yang bikin usaha gue tutup...\"","\"Kalau masih ngelakuin ini, kamu kalah duluan...\"","\"Satu insight ini ngubah hidup gue total...\""];
   const reasons = ["hook kuat + konflik","puncak emosi + pengungkapan","opini berani"];
-  const clips = ["https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4","https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4","https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"];
+  const clips = ["https://www.w3schools.com/html/mov_bbb.mp4","https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4","https://www.w3schools.com/html/movie.mp4"];
   const shorts = Array.from({length:numClips},(_,i)=>({
     title: titles[i%titles.length], score: 92-i*4, start_time: 12+i*80, end_time: 48+i*80,
     hook_sentence: hooks[i%hooks.length],
