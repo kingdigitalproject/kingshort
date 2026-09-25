@@ -1,0 +1,14 @@
+{
+  "name": "kingshort",
+  "version": "2.0.0",
+  "description": "KINGSHORT — King of Shorts. Web UI for AI YouTube Shorts Generator — Netlify ready (YouTube In, King Out)",
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site — no build needed. Ready to deploy.'",
+    "serve": "npx serve ."
+  },
+  "keywords": ["kingshort", "king-of-shorts", "youtube", "shorts", "ai", "netlify", "muapi", "whisper"],
+  "license": "MIT",
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KINGSHORT — King of Shorts | AI YouTube to Viral Shorts</title>
+  <meta name="description" content="KINGSHORT — King of Shorts. Paste YouTube URL → dapatkan N video 9:16 viral-ready. AI virality ranking, auto-crop vertical. Deploy siap Netlify." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-icon">👑</div>
+        <span>KING<span class="brand-accent">SHORT</span></span>
+        <span class="badge">👑 KING OF SHORTS • Netlify Ready</span>
+      </div>
+      <div class="nav-links">
+        <a href="#generator">Generator</a>
+        <a href="#how">Cara Kerja</a>
+        <a href="#api">API</a>
+        <a href="https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator" target="_blank" class="btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="pill"><span class="dot"></span> 👑 KINGSHORT — YouTube In, King Out • 9:16 viral-ready mp4s</div>
+      <h1>YouTube URL <span class="grad">jadi Shorts viral</span> — ala KING</h1>
+      <p class="hero-sub"><b>KINGSHORT — King of Shorts.</b> Paste link YouTube → AI otomatis transcribe, ranking virality (hook, emotional peak, conflict, quotable), auto-crop vertical. Dua mode: <b>API (MuAPI cepat)</b> & <b>Local (yt-dlp + Whisper)</b>.</p>
+      <div class="hero-cta">
+        <a href="#generator" class="btn-primary">👑 Coba KINGSHORT</a>
+        <a href="#deploy" class="btn-secondary">🚀 Deploy ke Netlify</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>∞</b><span>Aspect Ratio (9:16, 1:1, custom)</span></div>
+        <div><b>30m+</b><span>Auto-chunk long video</span></div>
+        <div><b>100%</b><span>JSON output siap automation</span></div>
+      </div>
+    </div>
+    <div class="hero-preview">
+      <div class="preview-card">
+        <div class="preview-top">
+          <span class="live">👑 KINGSHORT LIVE</span>
+          <span class="preview-url">youtube.com/watch?v=dQw4w9WgXcQ</span>
+        </div>
+        <div class="preview-thumbs">
+          <div class="thumb"><div class="thumb-img"></div><span class="score">92</span><p>The one mistake that cost me $50K</p><small>hook: "Nobody talks about this..."</small></div>
+          <div class="thumb"><div class="thumb-img t2"></div><span class="score">88</span><p>Why your startup will fail in 6 months</p><small>reason: conflict + revelation</small></div>
+          <div class="thumb"><div class="thumb-img t3"></div><span class="score">85</span><p>AI will replace this job first</p><small>score: opinion bomb</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENERATOR -->
+  <section id="generator" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>👑 KINGSHORT Generator</h2>
+        <p>Paste YouTube URL atau path lokal. Pilih mode & jumlah clip. Semua jalan via Netlify Functions — King of Shorts.</p>
+      </div>
+
+      <div class="generator-grid">
+        <!-- FORM -->
+        <div class="card form-card">
+          <div class="card-head"><h3>Masukkan Sumber Video</h3><span class="mode-badge" id="modeBadge">MODE: API (MuAPI)</span></div>
+
+          <label>YouTube URL / file:// / local path</label>
+          <div class="input-row">
+            <input id="youtubeUrl" type="text" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" value="" />
+            <button class="btn-icon" id="pasteBtn" title="Paste">⎘</button>
+          </div>
+          <small class="hint">Contoh: https://www.youtube.com/watch?v=dQw4w9WgXcQ • file:///Videos/input.mp4 hanya untuk mode Local</small>
+
+          <div class="thumbnail-preview" id="thumbPreview" style="display:none">
+            <img id="thumbImg" src="" alt="thumbnail" />
+            <div><b id="thumbTitle">Preview</b><small id="thumbMeta"></small></div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label>Mode</label>
+              <select id="mode">
+                <option value="api" selected>API — MuAPI (cepat, butuh MUAPI_API_KEY)</option>
+                <option value="local">Local — yt-dlp + Whisper + OpenAI/Gemini</option>
+                <option value="demo">Demo — tanpa API key (mock data)</option>
+              </select>
+            </div>
+            <div>
+              <label>Jumlah Clip</label>
+              <select id="numClips">
+                <option value="3" selected>3 clips</option>
+                <option value="5">5 clips</option>
+                <option value="7">7 clips</option>
+                <option value="10">10 clips</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div>
+              <label>Aspect Ratio</label>
+              <select id="aspectRatio">
+                <option value="9:16" selected>9:16 — TikTok/Reels/Shorts</option>
+                <option value="1:1">1:1 — Square</option>
+                <option value="16:9">16:9 — Landscape</option>
+                <option value="4:5">4:5 — Portrait</option>
+              </select>
+            </div>
+            <div>
+              <label>Resolusi Source</label>
+              <select id="format">
+                <option value="1080">1080p</option>
+                <option value="720" selected>720p</option>
+                <option value="480">480p</option>
+                <option value="360">360p</option>
+              </select>
+            </div>
+            <div>
+              <label>Bahasa (Whisper)</label>
+              <select id="language">
+                <option value="auto" selected>auto-detect</option>
+                <option value="en">en — English</option>
+                <option value="id">id — Indonesia</option>
+                <option value="ja">ja — Japanese</option>
+                <option value="ko">ko — Korean</option>
+                <option value="es">es — Spanish</option>
+              </select>
+            </div>
+          </div>
+
+          <details class="adv">
+            <summary>⚙️ Pengaturan Lanjut (API Keys — opsional, tersimpan lokal)</summary>
+            <div class="adv-grid">
+              <input id="muapiKey" type="password" placeholder="MUAPI_API_KEY (untuk mode API)" />
+              <input id="openaiKey" type="password" placeholder="OPENAI_API_KEY (untuk mode Local + OpenAI)" />
+              <input id="geminiKey" type="password" placeholder="GEMINI_API_KEY (untuk mode Local + Gemini)" />
+              <select id="llmProvider">
+                <option value="openai">LLM Provider: OpenAI (gpt-4o-mini)</option>
+                <option value="gemini">LLM Provider: Gemini (gemini-2.5-flash)</option>
+              </select>
+            </div>
+            <small>Keys tidak pernah dikirim ke server kecuali dipanggil via Netlify Function. Untuk produksi, set di Netlify Dashboard → Environment variables.</small>
+          </details>
+
+          <button id="generateBtn" class="btn-primary btn-block">👑 Generate dengan KINGSHORT</button>
+          <div class="btn-row">
+            <button id="exampleBtn" class="btn-ghost">Isi contoh URL</button>
+            <button id="jsonBtn" class="btn-ghost">📦 Lihat JSON output</button>
+            <button id="clearBtn" class="btn-ghost">Reset</button>
+          </div>
+
+          <div id="status" class="status" style="display:none"></div>
+        </div>
+
+        <!-- OUTPUT -->
+        <div class="card output-card">
+          <div class="card-head"><h3>👑 Hasil KINGSHORT</h3><span id="resultMeta" class="muted">Belum ada — klik Generate</span></div>
+          <div id="progress" class="progress" style="display:none">
+            <div class="progress-bar"><div id="progressFill"></div></div>
+            <small id="progressText">Menyiapkan...</small>
+          </div>
+          <div id="results" class="results">
+            <div class="empty">
+              <div class="empty-icon">🎞️</div>
+              <p>Belum ada shorts.<br><small>Paste URL YouTube lalu klik Generate. Output: viral score + hook + reason + link mp4.</small></p>
+              <div class="empty-codes">
+                <code>python main.py "https://youtube.com/watch?v=..." --num-clips 3</code>
+                <code>from shorts_generator import generate_shorts</code>
+              </div>
+            </div>
+          </div>
+          <div id="jsonOutput" class="json-output" style="display:none">
+            <div class="json-head"><b>📦 JSON Output</b><button id="copyJson" class="btn-ghost small">Copy</button><button id="downloadJson" class="btn-ghost small">Download</button></div>
+            <pre id="jsonPre"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section alt">
+    <div class="container">
+      <h2>🧩 Cara Kerja — Pipeline yang sama dengan CLI</h2>
+      <div class="steps">
+        <div class="step"><span>1</span><h4>Download</h4><p><b>API:</b> MuAPI /youtube-download<br><b>Local:</b> yt-dlp</p></div>
+        <div class="step"><span>2</span><h4>Transcribe</h4><p><b>API:</b> MuAPI /openai-whisper<br><b>Local:</b> faster-whisper (CPU/CUDA)</p></div>
+        <div class="step"><span>3</span><h4>Highlight Ranking</h4><p>LLM virality framework: hook, emotional peak, opinion bomb, revelation, conflict, quotable</p></div>
+        <div class="step"><span>4</span><h4>Dedupe + Smart Crop</h4><p>Overlap &gt;50% → keep skor tertinggi. Auto-crop vertical via MuAPI / OpenCV face tracking.</p></div>
+      </div>
+      <div class="info-grid">
+        <div class="info">
+          <h4>📈 Virality Criteria</h4>
+          <pre>VIRALITY_CRITERIA = [
+  hook moments, emotional peaks,
+  opinion bombs, revelation moments,
+  conflict, quotable lines,
+  story peaks, practical value
+]</pre>
+        </div>
+        <div class="info">
+          <h4>⚙️ Konfigurasi</h4>
+          <pre>CHUNK_SIZE_SECONDS = 1200  # 20 min
+LONG_VIDEO_THRESHOLD = 1800 # 30 min
+CHUNK_OVERLAP_SECONDS = 60
+MUAPI_POLL_INTERVAL = 5s
+MUAPI_POLL_TIMEOUT = 1800s</pre>
+        </div>
+        <div class="info">
+          <h4>🔀 Mode</h4>
+          <table class="mini-table">
+            <tr><th>Step</th><th>API</th><th>Local</th></tr>
+            <tr><td>Download</td><td>MuAPI</td><td>yt-dlp</td></tr>
+            <tr><td>Transcribe</td><td>MuAPI</td><td>faster-whisper</td></tr>
+            <tr><td>LLM</td><td>gpt-5-mini</td><td>OpenAI/Gemini</td></tr>
+            <tr><td>Crop</td><td>MuAPI autocrop</td><td>ffmpeg+OpenCV</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPLOY -->
+  <section id="deploy" class="section">
+    <div class="container">
+      <h2>🚀 Deploy ke Netlify — 1 Klik dari GitHub</h2>
+      <div class="deploy-grid">
+        <div class="card">
+          <h3>Opsi A — Deploy via GitHub (Recommended)</h3>
+          <ol>
+            <li>Push folder ini ke repo GitHub baru (atau fork <code>Anil-matcha/AI-Youtube-Shorts-Generator</code> lalu merge file ini).</li>
+            <li>Buka <a href="https://app.netlify.com/start" target="_blank">app.netlify.com/start</a> → Import from Git.</li>
+            <li>Build command: <code>(kosongkan)</code> — Publish directory: <code>.</code> — Functions: <code>netlify/functions</code></li>
+            <li>Set Environment Variables di Netlify Dashboard:
+              <pre>MUAPI_API_KEY=xxx         # wajib untuk mode API
+OPENAI_API_KEY=xxx        # untuk mode Local + OpenAI
+GEMINI_API_KEY=xxx        # untuk mode Local + Gemini
+LLM_PROVIDER=openai</pre>
+            </li>
+            <li>Deploy! Akses di <code>https://&lt;site&gt;.netlify.app</code></li>
+          </ol>
+          <a class="btn-primary" href="https://app.netlify.com/start/deploy?repository=https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator" target="_blank">Deploy to Netlify ↗</a>
+        </div>
+        <div class="card">
+          <h3>Opsi B — Drag & Drop (tanpa Git)</h3>
+          <ol>
+            <li>Jalankan <code>npm run build</code> atau zip folder ini.</li>
+            <li>Buka <a href="https://app.netlify.com/drop" target="_blank">app.netlify.com/drop</a> → drag zip.</li>
+            <li>Set env vars sama seperti Opsi A.</li>
+          </ol>
+          <h3 style="margin-top:20px">Opsi C — Netlify CLI</h3>
+          <pre>npm i -g netlify-cli
+netlify login
+netlify init
+netlify env:set MUAPI_API_KEY xxx
+netlify deploy --prod</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API DOCS -->
+  <section id="api" class="section alt">
+    <div class="container">
+      <h2>🔌 API — Netlify Functions</h2>
+      <div class="api-grid">
+        <div class="card">
+          <h4>POST /.netlify/functions/generate</h4>
+          <pre>{
+  "url": "https://youtube.com/watch?v=...",
+  "num_clips": 3,
+  "aspect_ratio": "9:16",
+  "format": "720",
+  "language": "auto",
+  "mode": "api"
+}</pre>
+          <p>Response: <code>{ source_video_url, transcript, highlights, shorts[] }</code> — sama dengan <code>result.json</code> CLI + <code>--output-json</code></p>
+        </div>
+        <div class="card">
+          <h4>GET /.netlify/functions/health</h4>
+          <pre>{ "ok": true, "hasMuapi": true, "version": "2.0" }</pre>
+          <h4 style="margin-top:16px">cURL Example</h4>
+          <pre>curl -X POST https://&lt;site&gt;.netlify.app/.netlify/functions/generate \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://youtube.com/watch?v=...","num_clips":3}'</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <span><b>👑 KINGSHORT</b> — King of Shorts • Built from <a href="https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator" target="_blank">Anil-matcha/AI-Youtube-Shorts-Generator</a> • Netlify Functions + Vanilla JS • <a href="https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/main/LICENSE" target="_blank">MIT</a></span>
+      <span class="muted">© 2026 KINGSHORT — No Python required on Netlify.</span>
+    </div>
+  </footer>
+
+  <script src="./assets/app.js"></script>
+</body>
+</html>
