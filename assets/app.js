@@ -12,17 +12,8 @@ const els = {
 
 let lastResult = null;
 
-// persist keys locally
-['muapiKey','openaiKey','geminiKey','llmProvider'].forEach(k=>{
-  const v = localStorage.getItem(k);
-  if(v && els[k]) els[k].value = v;
-  if(els[k]) els[k].addEventListener('change', ()=> localStorage.setItem(k, els[k].value));
-});
-
-els.mode.addEventListener('change', ()=>{
-  els.modeBadge.textContent = 'MODE: ' + els.mode.value.toUpperCase();
-  els.modeBadge.style.background = els.mode.value==='demo' ? '#ff9800' : '';
-});
+els.modeBadge.textContent = 'SIAP';
+els.modeBadge.style.background = 'var(--grad)';
 
 function getVideoId(url){
   try{
@@ -57,8 +48,8 @@ $('#exampleBtn').addEventListener('click', ()=>{
 });
 $('#clearBtn').addEventListener('click', ()=>{
   els.url.value=''; lastResult=null;
-  els.results.innerHTML=`<div class="empty"><div class="empty-icon">👑</div><p>Belum ada shorts — <b>KINGSHORT</b> siap.<br><small>Paste URL YouTube lalu klik Generate.</small></p></div>`;
-  els.jsonOutput.style.display='none'; els.resultMeta.textContent='Belum ada — klik Generate';
+  els.results.innerHTML=`<div class="empty"><div class="empty-icon">👑</div><p><b>Hasil Shorts kamu akan muncul di sini</b><br><small>Paste URL YouTube lalu klik Buat Shorts.</small></p></div>`;
+  els.jsonOutput.style.display='none'; els.resultMeta.textContent='Belum ada — klik Buat Shorts';
   hideStatus(); els.thumbPreview.style.display='none';
 });
 $('#jsonBtn').addEventListener('click', ()=>{
@@ -115,9 +106,10 @@ function mockResult(url, numClips){
     };
   });
   return {
+    brand: 'KINGSHORTCLIP',
     mode: 'demo',
     source_video_url: url,
-    transcript: { duration: 600, segments: [{start:0,end:5,text:"👑 KINGSHORT Demo transcript — set MUAPI_API_KEY for real pipeline"}]},
+    transcript: { duration: 600, segments: [{start:0,end:5,text:"KINGSHORTCLIP Demo"}]},
     highlights: shorts.map(s=>({...s, type:'highlight'})),
     shorts
   };
@@ -126,8 +118,7 @@ function mockResult(url, numClips){
 function renderResults(result){
   lastResult = result;
   const n = result.shorts.length;
-  const totalHighlights = result.highlights?.length ?? n;
-  els.resultMeta.textContent = `${totalHighlights} candidates → kept top ${n} • mode: ${result.mode}`;
+  els.resultMeta.textContent = `${n} Shorts viral siap`;
   els.jsonPre.textContent = JSON.stringify(result,null,2);
 
   if(!result.shorts.length){
@@ -193,18 +184,13 @@ els.generateBtn.addEventListener('click', async()=>{
     url,
     num_clips: parseInt(els.numClips.value,10),
     aspect_ratio: els.aspectRatio.value,
-    format: els.format.value,
-    language: els.language.value,
-    mode: els.mode.value,
-    // forward keys if user filled (for Netlify Function env override or direct)
-    muapi_key: els.muapiKey.value.trim() || undefined,
-    openai_key: els.openaiKey.value.trim() || undefined,
-    gemini_key: els.geminiKey.value.trim() || undefined,
-    llm_provider: els.llmProvider.value
+    format: els.format.value || "720",
+    language: els.language.value || "auto",
+    mode: els.mode.value || "api",
   };
 
-  els.generateBtn.disabled=true; els.generateBtn.textContent='👑 KINGSHORT Memproses...';
-  showProgress(10,'KINGSHORT menyiapkan mahkota...');
+  els.generateBtn.disabled=true; els.generateBtn.textContent='👑 Memproses...';
+  showProgress(10,'KINGSHORTCLIP sedang mencari momen viral...');
   hideStatus();
 
   let pct=15;
@@ -214,18 +200,18 @@ els.generateBtn.addEventListener('click', async()=>{
   }, 900);
 
   try{
-    showStatus('👑 KINGSHORT • Mode: '+payload.mode+' • Memanggil pipeline (bisa 30–90 detik)...','info');
+    showStatus('Memproses — mohon tunggu 30–90 detik...','info');
     const result = await callGenerate(payload);
     clearInterval(progInterval);
     showProgress(100,'Selesai ✓'); setTimeout(hideProgress,1500);
     renderResults(result);
-    showStatus(`👑 KINGSHORT Selesai — ${result.shorts.length} shorts dirender (mode: ${result.mode})`,'ok');
+    showStatus(`Selesai — ${result.shorts.length} Shorts viral siap! Klik Download untuk simpan.`,'ok');
   }catch(err){
     clearInterval(progInterval); hideProgress();
-    showStatus('FAILED: '+(err.message||err),'err');
+    showStatus('Gagal: '+(err.message||err),'err');
     console.error(err);
   }finally{
-    els.generateBtn.disabled=false; els.generateBtn.textContent='👑 Generate dengan KINGSHORT';
+    els.generateBtn.disabled=false; els.generateBtn.textContent='👑 Buat Shorts Viral Sekarang';
   }
 });
 
