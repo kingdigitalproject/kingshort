@@ -3,83 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KINGSHORTCLIP by ciora.id — King of Shorts | Gratis Tanpa API Key</title>
-  <meta name="description" content="KINGSHORTCLIP by ciora.id — Ubah video YouTube panjang jadi Shorts viral 9:16 otomatis. Gratis, tanpa API key, tanpa kredit. AI cari hook terbaik, siap upload TikTok/Reels/Shorts." />
+  <title>KINGSHORTCLIP by ciora.id — AutoClip Local-First | Gratis Tanpa API Key</title>
+  <meta name="description" content="KINGSHORTCLIP by ciora.id — powered by AutoClip (artbyjazi/autoclip). Local-first AI clipper: YouTube/file → Whisper → LLM → speaker-tracked 9:16 + caption. Tanpa akun, tanpa upload, tanpa watermark." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css" />
 </head>
 <body>
-  <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
       <div class="brand">
         <div class="brand-icon">👑</div>
         <span>KING<span class="brand-accent">SHORTCLIP</span></span>
-        <span class="badge">by ciora.id • GRATIS</span>
+        <span class="badge">by ciora.id • AutoClip • GRATIS</span>
       </div>
       <div class="nav-links">
         <a href="#generator">Generator</a>
+        <a href="#autoclip">Kenapa AutoClip</a>
         <a href="#tutorial">Tutorial</a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO — COPYWRITING KINGSHORTCLIP -->
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-content">
-      <div class="pill"><span class="dot"></span> 👑 KINGSHORTCLIP by ciora.id — GRATIS • Tanpa API Key • Tanpa Kredit</div>
-      <h1>YouTube panjang <span class="grad">jadi Shorts viral</span> otomatis</h1>
-      <p class="hero-sub"><b>KINGSHORTCLIP by ciora.id</b> adalah AI clipper <b>gratis 100%</b> — tanpa MuAPI key, tanpa top-up. Tempel link YouTube, AI cari <b>momen paling viral</b> (hook, emosi, konflik, quotable), lalu potong jadi video vertical <b>9:16 siap upload</b> TikTok, Reels & YouTube Shorts.</p>
+      <div class="pill"><span class="dot"></span> 👑 KINGSHORTCLIP × AutoClip — Local-First, Gratis, Tanpa Akun</div>
+      <h1>YouTube panjang <span class="grad">jadi Shorts viral</span> — 100% lokal</h1>
+      <p class="hero-sub"><b>KINGSHORTCLIP by ciora.id</b> sekarang pakai <b>AutoClip</b> (<code>artbyjazi/autoclip</code>) — open-source clipper lokal. <b>Tanpa upload ke server orang, tanpa watermark, tanpa subscription.</b> Transcribe pakai Whisper, cari highlight pakai LLM (Ollama lokal atau BYO key Anthropic/OpenAI/Gemini), reframe 9:16 ngikutin pembicara, burn caption animasi — jadi MP4 siap upload.</p>
       <ul class="hero-benefits">
-        <li>⚡ <b>Hemat 90% waktu editing</b> — 1 link YouTube jadi 3–10 Shorts dalam menit</li>
-        <li>🎯 <b>Auto viral ranking</b> — bukan random, tapi hook terkuat yang dipilih AI</li>
-        <li>📱 <b>Auto-crop vertical pintar</b> — wajah tetap di tengah, hasil rapi</li>
+        <li>🔒 <b>Local-first</b> — video tidak pernah keluar dari mesin kamu (Ollama = 100% offline)</li>
+        <li>🎯 <b>Speaker-tracked reframe</b> — crop ngikutin siapa yang ngomong, bukan center-crop janky</li>
+        <li>💬 <b>4 caption styles</b> — bold_pop, karaoke_fill, clean_lower, boxed (font bundled, tidak fetch)</li>
       </ul>
       <div class="hero-cta">
-        <a href="#generator" class="btn-primary">👑 Buat Shorts Sekarang — Gratis</a>
-        <a href="#tutorial" class="btn-secondary">Lihat Cara Pakai</a>
+        <a href="#generator" class="btn-primary">👑 Coba Generator — Gratis</a>
+        <a href="#tutorial" class="btn-secondary">Jalankan Lokal via Docker</a>
       </div>
-      <div class="hero-social">✅ Gratis unlimited by ciora.id • Tanpa API key • Tanpa watermark • Hasil mp4 siap upload</div>
+      <div class="hero-social">Powered by <a href="https://github.com/artbyjazi/autoclip" target="_blank">artbyjazi/autoclip</a> • MIT • Python 3.11/3.12 + ffmpeg + Node 20</div>
     </div>
     <div class="hero-preview">
       <div class="preview-card">
         <div class="preview-top">
-          <span class="live">👑 KINGSHORTCLIP</span>
-          <span class="preview-url">youtube.com/watch?v=...</span>
+          <span class="live">👑 AUTOCLIP</span>
+          <span class="preview-url">autoclip clip https://youtube.com/watch?v=...</span>
         </div>
         <div class="preview-thumbs">
-          <div class="thumb"><div class="thumb-img"></div><span class="score">92</span><p>The one mistake that cost me $50K</p><small>hook: "Nobody talks about this..."</small></div>
-          <div class="thumb"><div class="thumb-img t2"></div><span class="score">88</span><p>Why your startup will fail in 6 months</p><small>hook: konflik + revelation</small></div>
-          <div class="thumb"><div class="thumb-img t3"></div><span class="score">85</span><p>AI will replace this job first</p><small>hook: opinion bomb</small></div>
+          <div class="thumb"><div class="thumb-img"></div><span class="score">bold_pop</span><p>Chunky white, kata ngomong jadi kuning & membesar</p><small>style: bold_pop</small></div>
+          <div class="thumb"><div class="thumb-img t2"></div><span class="score">karaoke</span><p>Kata terisi warna persis saat diucapkan</p><small>style: karaoke_fill</small></div>
+          <div class="thumb"><div class="thumb-img t3"></div><span class="score">boxed</span><p>Teks kontras di blok solid — readability maksimal</p><small>style: boxed</small></div>
         </div>
-        <div class="preview-note">Setiap clip dapat <b>score + hook + alasan viral</b></div>
+        <div class="preview-note">Pipeline: <b>ingest → transcribe → highlights → reframe → captions → export</b> — resume dari stage yang gagal</div>
       </div>
     </div>
   </section>
 
-  <!-- GENERATOR — CLEAN, NO API KEYS -->
   <section id="generator" class="section">
     <div class="container">
       <div class="section-head">
         <h2>👑 KINGSHORTCLIP Generator</h2>
-        <p>Tempel link YouTube, pilih berapa clip — jadi. <b style="color:#FFD700">Gratis by ciora.id, tanpa API key.</b></p>
+        <p>Tempel link YouTube, pilih berapa clip — jadi. <b style="color:#FFD700">Gratis by ciora.id (preview). Untuk hasil asli, jalankan AutoClip lokal di bawah.</b></p>
       </div>
       <div class="generator-grid">
         <div class="card form-card">
-          <div class="card-head"><h3>1. Tempel Link YouTube</h3><span class="mode-badge" id="modeBadge">SIAP</span></div>
+          <div class="card-head"><h3>1. Tempel Link YouTube</h3><span class="mode-badge" id="modeBadge">GRATIS • ciora.id</span></div>
           <label>Link YouTube</label>
           <div class="input-row">
             <input id="youtubeUrl" type="text" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" />
             <button class="btn-icon" id="pasteBtn" title="Paste">⎘</button>
           </div>
-          <small class="hint">Contoh: https://www.youtube.com/watch?v=dQw4w9WgXcQ</small>
+          <small class="hint">Contoh: https://www.youtube.com/watch?v=dQw4w9WgXcQ — atau drop file lokal via AutoClip</small>
           <div class="thumbnail-preview" id="thumbPreview" style="display:none">
             <img id="thumbImg" src="" alt="thumbnail" />
             <div><b id="thumbTitle">Preview</b><small id="thumbMeta"></small></div>
           </div>
-
           <div class="grid2" style="margin-top:16px">
             <div>
               <label>Jumlah Clip</label>
@@ -99,88 +96,106 @@
               </select>
             </div>
           </div>
-
-          <!-- mode gratis ciora.id — tanpa MuAPI -->
           <select id="mode" style="display:none"><option value="free" selected>free</option></select>
           <select id="format" style="display:none"><option value="720" selected>720</option></select>
           <select id="language" style="display:none"><option value="auto" selected>auto</option></select>
-          <input id="muapiKey" type="hidden" />
-          <input id="openaiKey" type="hidden" />
-          <input id="geminiKey" type="hidden" />
+          <input id="muapiKey" type="hidden" /><input id="openaiKey" type="hidden" /><input id="geminiKey" type="hidden" />
           <select id="llmProvider" style="display:none"><option value="openai">openai</option></select>
-
           <button id="generateBtn" class="btn-primary btn-block">👑 Buat Shorts Viral Sekarang</button>
           <div class="btn-row">
             <button id="exampleBtn" class="btn-ghost">Isi contoh link</button>
             <button id="clearBtn" class="btn-ghost">Reset</button>
           </div>
           <div id="status" class="status" style="display:none"></div>
+          <small class="hint" style="margin-top:10px">Preview di Netlify pakai video contoh. Untuk <b>clip beneran dari link kamu</b> → jalankan AutoClip lokal (tutorial bawah) — gratis, tanpa kredit.</small>
         </div>
-
         <div class="card output-card">
           <div class="card-head"><h3>👑 Hasil KINGSHORTCLIP</h3><span id="resultMeta" class="muted">Belum ada — klik Buat Shorts</span></div>
-          <div id="progress" class="progress" style="display:none">
-            <div class="progress-bar"><div id="progressFill"></div></div>
-            <small id="progressText">Menyiapkan...</small>
-          </div>
+          <div id="progress" class="progress" style="display:none"><div class="progress-bar"><div id="progressFill"></div></div><small id="progressText">Menyiapkan...</small></div>
           <div id="results" class="results">
             <div class="empty">
               <div class="empty-icon">👑</div>
-              <p><b>Hasil Shorts kamu akan muncul di sini</b><br><small>Setiap hasil dapat <b>score viral</b>, <b>kalimat hook</b>, dan tombol <b>Download mp4</b> siap upload.</small></p>
+              <p><b>Hasil Shorts kamu akan muncul di sini</b><br><small>Setiap hasil: <b>skor viral, hook, alasan</b> + <b>preview MP4</b> + <b>Download</b>. Untuk hasil dari video kamu sendiri, jalankan AutoClip lokal.</small></p>
             </div>
           </div>
-          <div id="jsonOutput" class="json-output" style="display:none">
-            <div class="json-head"><b>📦 Data Lengkap</b><button id="copyJson" class="btn-ghost small">Copy</button><button id="downloadJson" class="btn-ghost small">Download</button></div>
-            <pre id="jsonPre"></pre>
-          </div>
+          <div id="jsonOutput" class="json-output" style="display:none"><div class="json-head"><b>📦 Data Lengkap</b><button id="copyJson" class="btn-ghost small">Copy</button><button id="downloadJson" class="btn-ghost small">Download</button></div><pre id="jsonPre"></pre></div>
           <button id="jsonBtn" class="btn-ghost small" style="margin-top:10px;display:none">Lihat data</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TUTORIAL PENGGUNAAN — CLEAN -->
-  <section id="tutorial" class="section alt">
+  <section id="autoclip" class="section alt">
     <div class="container">
-      <h2>📖 Tutorial Penggunaan — 3 Langkah</h2>
-      <p class="muted" style="margin:8px 0 20px">Tanpa instal, tanpa setting — langsung pakai di browser.</p>
+      <h2>⚡ Kenapa Ganti ke AutoClip?</h2>
       <div class="steps">
-        <div class="step"><span>1</span><h4>Tempel Link</h4><p>Copy link YouTube (video panjang) → paste di kolom Generator di atas. Bisa video podcast, interview, vlog — semua bisa.</p></div>
-        <div class="step"><span>2</span><h4>Pilih Jumlah</h4><p>Pilih mau <b>3, 5, 7 atau 10 Shorts</b> dan format <b>9:16</b> untuk TikTok/Reels. Klik <b>Buat Shorts</b>.</p></div>
-        <div class="step"><span>3</span><h4>Download & Upload</h4><p>Tunggu 1–2 menit → AI kasih <b>score + hook</b> per clip → klik <b>Download mp4</b> → langsung upload ke TikTok / Reels / Shorts.</p></div>
-        <div class="step"><span>✓</span><h4>Tips Viral</h4><p>Pilih clip dengan <b>score 85+</b> dulu. Pakai hook yang disediakan sebagai <b>caption / opening text</b> untuk boost view.</p></div>
+        <div class="step"><span>🔒</span><h4>Local-First, No Upload</h4><p>Tidak ada akun, tidak upload ke server orang. Pakai Ollama = 100% offline. BYO key (Anthropic/OpenAI/Gemini) cuma kirim transcript text, bukan video.</p></div>
+        <div class="step"><span>🎯</span><h4>Speaker-Tracked Reframe</h4><p>Crop 9:16 ngikutin siapa yang ngomong. Shot detection dulu, frame per shot — tidak panning lewat cut.</p></div>
+        <div class="step"><span>💬</span><h4>4 Caption Styles</h4><p>bold_pop, karaoke_fill, clean_lower, boxed. Font bundled SIL OFL, burn pakai libass — tidak fetch runtime.</p></div>
+        <div class="step"><span>♻️</span><h4>Resume & Export 3 Rasio</h4><p>Setiap stage tulis ke `~/.autoclip/work/{job_id}/` — gagal di caption? Resume dari reframe. Export 9:16/1:1/4:5, h264 yuv420p + AAC -14 LUFS.</p></div>
       </div>
-
       <div class="info-grid" style="margin-top:18px">
         <div class="info">
-          <h4>🎯 Gimana AI Pilih Clip?</h4>
-          <p style="font-size:13px;color:var(--muted);line-height:1.6">KINGSHORTCLIP bukan potong random. AI menilai 8 sinyal viral: <b>hook moment, puncak emosi, opinion bomb, revelation, konflik, quotable line, story peak, dan practical value</b>. Clip dengan skor tertinggi yang ditampilkan.</p>
+          <h4>🆚 Beda dari Repo Lama</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">Repo lama pakai MuAPI (bayar, kredit, 402). AutoClip <b>gratis selamanya</b>, tidak ada top-up, tidak ada 402. Pilihan LLM: Ollama lokal (gratis) atau BYO key mana saja (OpenRouter/Groq/DeepSeek/LM Studio).</p>
         </div>
         <div class="info">
-          <h4>📱 Format Apa Saja?</h4>
-          <p style="font-size:13px;color:var(--muted);line-height:1.6"><b>9:16</b> untuk TikTok, Instagram Reels, YouTube Shorts. <b>1:1</b> untuk feed square. <b>4:5</b> untuk portrait. Semua otomatis di-crop vertical dengan wajah tetap di tengah.</p>
+          <h4>🧩 Highlight Lebih Akurat</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">Model balikin <b>word indices</b> bukan timestamp — anti salah hitung. Timing diambil dari word timings terukur. Prompt di <code>backend/autoclip/prompts/highlight_v1.txt</code> — paling high-leverage buat tuning.</p>
         </div>
         <div class="info">
-          <h4>❓ Video Panjang Bisa?</h4>
-          <p style="font-size:13px;color:var(--muted);line-height:1.6">Bisa. Video di atas 30 menit otomatis dipecah per 20 menit (overlap 60 detik) jadi tidak ada momen viral yang terlewat. Podcast 1 jam tetap dapat highlights terbaik.</p>
+          <h4>📦 Non-Goals (jujur)</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">Tidak ada direct post ke TikTok/IG/YT (butuh approval), tidak ada cloud/telemetry, tidak ada timeline editor selain trim & edit caption. Tidak pernah bypass DRM.</p>
         </div>
       </div>
+    </div>
+  </section>
 
+  <section id="tutorial" class="section">
+    <div class="container">
+      <h2>📖 Tutorial — Jalankan AutoClip Lokal (Gratis)</h2>
+      <p class="muted" style="margin:8px 0 20px">2 cara — Docker (paling gampang) atau manual. Butuh Python 3.11/3.12 (bukan 3.13), ffmpeg full (libass+libx264), Node 20.</p>
+      <div class="deploy-grid" style="grid-template-columns:1fr 1fr">
+        <div class="card">
+          <h3>🐳 Opsi A — Docker (Recommended)</h3>
+          <pre style="font-size:11px">git clone https://github.com/artbyjazi/autoclip.git
+cd autoclip
+docker compose -f docker/compose.yaml up --build
+# GPU: docker compose -f docker/compose.yaml --profile gpu up --build
+# buka http://localhost:8000</pre>
+          <p style="font-size:12px;color:var(--muted);margin-top:8px">ffmpeg, Python, font sudah pinned di image. Volume <code>./media</code> buat drop file tanpa upload UI.</p>
+        </div>
+        <div class="card">
+          <h3>💻 Opsi B — Manual</h3>
+          <pre style="font-size:11px">git clone https://github.com/artbyjazi/autoclip.git
+cd autoclip && uv venv --python 3.11 && uv pip install -e ".[dev]"
+cd frontend && npm install && npm run build && cd ..
+autoclip doctor   # cek ffmpeg, python, GPU
+autoclip serve    # http://localhost:8000</pre>
+          <p style="font-size:12px;color:var(--muted);margin-top:8px">macOS: <code>brew install ffmpeg-full</code> (bukan ffmpeg biasa). Windows: <code>winget install Gyan.FFmpeg</code></p>
+        </div>
+      </div>
+      <div class="steps" style="margin-top:18px">
+        <div class="step"><span>1</span><h4>Tambah Provider</h4><p>Settings → Keys → paste key <b>Anthropic/OpenAI/Gemini</b> atau <code>autoclip config set-secret anthropic</code>. Atau lokal: <code>ollama pull llama3.1:8b</code> (7B cukup, frontier lebih bagus hook).</p></div>
+        <div class="step"><span>2</span><h4>Ingest</h4><p>Paste YouTube link atau drop file. Kalau YouTube bot-check → Settings → Ingest → cookies from browser (close browser dulu).</p></div>
+        <div class="step"><span>3</span><h4>Clip & Export</h4><p><code>autoclip clip &lt;url|file&gt;</code> atau via UI: review → pilih style → export. CLI: <code>autoclip jobs</code>, <code>autoclip providers</code>, <code>autoclip styles</code></p></div>
+        <div class="step"><span>✓</span><h4>KINGSHORT di Netlify</h4><p>Landing KINGSHORT tetap di Netlify (preview gratis). Clipper beneran jalan lokal/Docker — hasil MP4 h264 + AAC -14 LUFS, caption burned, tanpa watermark.</p></div>
+      </div>
       <div class="card" style="margin-top:20px;text-align:center">
-        <h3 style="margin-bottom:8px">Siap jadi King of Shorts?</h3>
-        <p class="muted" style="margin-bottom:14px">1 link YouTube → 3 Shorts viral. Gratis, tanpa watermark.</p>
-        <a href="#generator" class="btn-primary">👑 Coba KINGSHORTCLIP Sekarang</a>
+        <h3 style="margin-bottom:8px">Siap jadi King of Shorts — lokal & gratis?</h3>
+        <p class="muted" style="margin-bottom:14px">git clone autoclip → docker compose up → jadi. Tanpa kredit, tanpa 402.</p>
+        <a href="https://github.com/artbyjazi/autoclip" target="_blank" class="btn-primary">⭐ artbyjazi/autoclip di GitHub</a>
+        <a href="#generator" class="btn-ghost" style="margin-left:8px">👑 Coba Preview KINGSHORT</a>
       </div>
     </div>
   </section>
 
   <footer class="footer">
     <div class="container">
-      <span><b>👑 KINGSHORTCLIP</b> by <a href="https://ciora.id" target="_blank">ciora.id</a> — King of Shorts • Gratis tanpa API key</span>
-      <span class="muted">© 2026 ciora.id • Buat Shorts viral tanpa edit manual.</span>
+      <span><b>👑 KINGSHORTCLIP</b> by <a href="https://ciora.id" target="_blank">ciora.id</a> × <a href="https://github.com/artbyjazi/autoclip" target="_blank">artbyjazi/autoclip</a> • Local-First • MIT</span>
+      <span class="muted">© 2026 ciora.id • AutoClip — No accounts, no uploads, no watermarks.</span>
     </div>
   </footer>
-
   <script src="./assets/app.js"></script>
 </body>
 </html>
